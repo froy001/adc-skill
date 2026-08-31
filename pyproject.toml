@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "adc-cli"
+version = "1.0.0"
+description = "CLI for Agent Design Contracts (ADC)"
+readme = "README-adc.md"
+requires-python = ">=3.10"
+dependencies = ["pydantic>=2"]
+
+[project.optional-dependencies]
+gemini = ["google-generativeai"]
+openai = ["openai"]
+anthropic = ["anthropic"]
+all = ["google-generativeai", "openai", "anthropic"]
+
+[project.scripts]
+adc = "adc_cli.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

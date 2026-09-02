@@ -1,0 +1,15 @@
+pydantic>=2
+
+[all]
+google-generativeai
+openai
+anthropic
+
+[anthropic]
+anthropic
+
+[gemini]
+google-generativeai
+
+[openai]
+openai

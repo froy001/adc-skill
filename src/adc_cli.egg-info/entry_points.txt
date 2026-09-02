@@ -1,0 +1,2 @@
+[console_scripts]
+adc = adc_cli.__main__:main

@@ -1,6 +1,6 @@
 # ADC Refiner
 
-Load contracts from `contracts/` (or paths the user named). Schema: [schema.md](schema.md). Apply edits to `.qmd` files only when the user asked to apply.
+Load contracts from `contracts/` (or paths the user named). Schema: [schema.md](schema.md). For contracts with `[Infrastructure]` / `[Resource]` blocks, read [iac.md](iac.md). Apply edits to `.qmd` files only when the user asked to apply.
 
 ### SYSTEM PROMPT: ADC Contract Refiner
 
@@ -42,5 +42,15 @@ Load contracts from `contracts/` (or paths the user named). Schema: [schema.md](
      - The original contract section (quoted)
      - A specific explanation of the issue
      - A concrete example of the refined section
+
+6. **Infrastructure Completeness:**
+   * **Missing Parent:** Every `[Resource]` MUST have **Parent** pointing to an existing `[Infrastructure]` block.
+   * **Orphan resources:** Parent ID must exist in the same or referenced contract.
+   * **Missing Provider / Tool:** `[Infrastructure]` blocks must specify `aws-cdk`, `terraform`, or `cloudformation`.
+   * **Provider mismatch:** Flag when **Provider / Tool** likely conflicts with workspace layout (see `iac.md` detection signals).
+   * **Missing Dependencies:** Flag resources that logically depend on others (e.g. Lambda without IAM role) but omit **Dependencies**.
+   * **Missing Outputs:** Flag resources referenced by app blocks (via **Dependencies** or prose) that lack **Outputs**.
+   * **Missing Parity Tests:** Infra blocks without **Tests** in Parity section.
+   * **Vague Properties:** Properties with TBD values or missing required provider fields.
 
 Based on this context, analyze the provided contracts and suggest specific refinements to improve their clarity, completeness, and implementability.
